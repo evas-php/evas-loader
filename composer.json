@@ -1,0 +1,15 @@
+{
+    "name": "evas-php/evas-loader",
+    "description": "Classes, Traits and Interfaces autoloader - partially supports PSR0, PSR4",
+    "version": "1.0",
+    "minimum-stability": "dev",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "evasyakin",
+            "email": "e.vasyakin@itevas.ru"
+        }
+    ],
+    "require": {}
+}
