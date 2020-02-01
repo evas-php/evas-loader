@@ -10,7 +10,7 @@ require_once dirname(dirname(__DIR__)) . '/evas-base/src/RunDirHelper.php';
 
 /**
  * Автозагрузчик.
- * @author Egor Vasyakin <e.vasyakin@itevas.ru>
+ * @author Egor Vasyakin <egor@evas-php.com>
  * @since 1.0
  */
 class Loader
