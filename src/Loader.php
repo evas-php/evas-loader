@@ -163,7 +163,7 @@ class Loader
             }
         }
         foreach ($this->dirs as &$dir) {
-            if ($this->load($dir . $name . '.php')) {
+            if ($this->load($dir . $className . '.php')) {
                 return;
             }
         }
