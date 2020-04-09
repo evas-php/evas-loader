@@ -162,10 +162,8 @@ class Loader
                 }
             }
         }
-
-        $name = str_replace('\\', '/', $className) . '.php';
         foreach ($this->dirs as &$dir) {
-            if ($this->load($dir . $name)) {
+            if ($this->load($dir . $name . '.php')) {
                 return;
             }
         }
@@ -178,6 +176,7 @@ class Loader
      */
     public function load(string $filename): bool
     {
+        $filename = str_replace('\\', '/', $filename);
         $filename = "$this->baseDir$filename";
         if (is_readable($filename)) {
             include $filename;
