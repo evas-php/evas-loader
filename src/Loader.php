@@ -4,7 +4,7 @@
  */
 namespace Evas\Loader;
 
-use Evas\Base\RunDirHelper;
+use Evas\Base\Helpers\RunDirHelper;
 
 require_once dirname(dirname(__DIR__)) . '/evas-base/src/RunDirHelper.php';
 
