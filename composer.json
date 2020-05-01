@@ -1,8 +1,8 @@
 {
     "name": "evas-php/evas-loader",
     "description": "Classes, Traits and Interfaces autoloader - partially supports PSR0, PSR4",
+    "keywords": ["loader", "psr0", "psr4", "evas-php"],
     "version": "1.0",
-    "minimum-stability": "dev",
     "type": "library",
     "license": "CC-BY-4.0",
     "authors": [
@@ -11,10 +11,7 @@
             "email": "egor@evas-php.com"
         }
     ],
-    "repositories": [
-        {"type": "vcs", "url": "https://github.com/evas-php/evas-base"}
-    ],
     "require": {
-        "evas-php/evas-base": "dev-master"
+        "evas-php/evas-base": "*"
     }
 }
