@@ -36,10 +36,8 @@ class Loader
      */
     public function __construct(string $baseDir = null)
     {
-        if (empty($baseDir)) {
-            $baseDir = RunDirHelper::getDir();
-        }
-        $this->baseDir = RunDirHelper::addEndDirSlash($baseDir);
+        if (empty($baseDir)) $baseDir = RunDirHelper::getDir();
+        $this->baseDir($baseDir);
     }
 
     /**
@@ -49,7 +47,7 @@ class Loader
      */
     public function baseDir(string $dir)
     {
-        $this->baseDir = $dir;
+        $this->baseDir = RunDirHelper::prepareDir($dir);
         return $this;
     }
 
@@ -60,7 +58,7 @@ class Loader
      */
     public function dir(string $dir)
     {
-        $this->dirs[] = $dir;
+        $this->dirs[] = RunDirHelper::prepareDir($this->baseDir . $dir);
         return $this;
     }
 
@@ -81,12 +79,13 @@ class Loader
      * Установка пути загрузки для пространства имен.
      * @param string namespace
      * @param string path
+     * @param bool аюсолютный путь или нет
      * @return self
      */
-    public function namespace(string $name, string $path)
+    public function namespace(string $name, string $path, bool $absolute = false)
     {
         $name = str_replace('\\', '\\\\', $name);
-        $this->namespaces[$name] = $path;
+        $this->namespaces[$name] = RunDirHelper::prepareDir((!$absolute ? $this->baseDir : '') . $path);
         return $this;
     }
 
@@ -122,7 +121,7 @@ class Loader
                     $part = ucfirst($part);
                 }
                 $namespace = implode('\\', $namespaceParts) . '\\';
-                $this->namespace($namespace, "$path/src/");
+                $this->namespace($namespace, "$path/src/", true);
             }
         }
         return $this;
@@ -177,7 +176,6 @@ class Loader
     public function load(string $filename): bool
     {
         $filename = str_replace('\\', '/', $filename);
-        $filename = "$this->baseDir$filename";
         if (is_readable($filename)) {
             include $filename;
             return true;
