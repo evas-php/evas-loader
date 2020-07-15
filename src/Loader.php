@@ -1,6 +1,6 @@
 <?php
 /**
- * @package evas-php/evas-loader
+ * @package evas-php\evas-loader
  */
 namespace Evas\Loader;
 
