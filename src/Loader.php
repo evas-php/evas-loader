@@ -52,52 +52,40 @@ class Loader
     }
 
     /**
-     * Установка директории загрузки.
-     * @param string
+     * Установка директории/директорий поиска.
+     * @param string директория
      * @return self
      */
-    public function dir(string $dir)
-    {
-        $this->dirs[] = RunDirHelper::prepareDir($this->baseDir . $dir);
-        return $this;
-    }
-
-    /**
-     * Установка директорий загрузки.
-     * @param array
-     * @return self
-     */
-    public function dirs(array $dirs)
+    public function dir(string ...$dirs)
     {
         foreach ($dirs as &$dir) {
-            $this->dir($dir);
+            $dir = $this->baseDir . str_replace('\\', '/', $dir);
         }
+        $this->dirs = array_merge($this->dirs, $dirs);
         return $this;
     }
 
     /**
-     * Установка пути загрузки для пространства имен.
-     * @param string namespace
-     * @param string path
-     * @param bool аюсолютный путь или нет
+     * Установка пути пространства имен.
+     * @param string ространство имен
+     * @param string путь
      * @return self
      */
-    public function namespace(string $name, string $path, bool $absolute = false)
+    public function namespace(string $namespace, string $path)
     {
-        $name = str_replace('\\', '\\\\', $name);
-        $this->namespaces[$name] = RunDirHelper::prepareDir((!$absolute ? $this->baseDir : '') . $path);
+        $this->namespaces[$namespace] = $this->baseDir . $path;
         return $this;
     }
 
     /**
-     * Установка нескольких путей загрузки для пространств имен.
-     * @param array namespaces
+     * Установка путей пространств имен.
+     * @param array пути пространств имен
      * @return self
      */
     public function namespaces(array $namespaces)
     {
-        foreach ($namespaces as $name => $path) {
-            $this->namespace($name, $path);
+        foreach ($namespaces as $namespace => $path) {
+            $this->namespace($namespace, $path);
         }
         return $this;
     }
