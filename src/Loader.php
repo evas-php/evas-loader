@@ -109,19 +109,18 @@ class Loader
      */
     public function useEvas()
     {
-        $loaderDir = str_replace('\\', '/', __DIR__);
-        $evasDir = dirname(dirname($loaderDir));
-        $evasPath = str_replace(str_replace('\\', '/', $this->baseDir), '', $evasDir);
+        $evasDir = dirname(dirname(__DIR__));
         $dirs = scandir($evasDir);
         foreach ($dirs as &$dir) {
-            $path = "$evasPath/$dir";
-            if (preg_match('/^evas-/', $dir)) {
-                $namespaceParts = explode('-', $dir);
-                foreach ($namespaceParts as &$part) {
-                    $part = ucfirst($part);
+            if (0 === strpos($dir, 'evas-')) {
+                $name = explode('-', $dir);
+                foreach ($name as &$sub) {
+                    $sub = ucfirst($sub);
                 }
-                $namespace = implode('\\', $namespaceParts) . '\\';
-                $this->namespace($namespace, "$path/src/", true);
+                $this->namespace(
+                    (implode('\\', $name) . '\\'), 
+                    "vendor/evas-php/$dir/src/"
+                );
             }
         }
         return $this;
