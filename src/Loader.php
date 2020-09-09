@@ -45,7 +45,7 @@ class Loader
      * @param string
      * @return self
      */
-    public function baseDir(string $dir)
+    public function baseDir(string $dir): Loader
     {
         $this->baseDir = RunDirHelper::prepareDir($dir);
         return $this;
@@ -56,7 +56,7 @@ class Loader
      * @param string директория
      * @return self
      */
-    public function dir(string ...$dirs)
+    public function dir(string ...$dirs): Loader
     {
         foreach ($dirs as &$dir) {
             $dir = $this->baseDir . str_replace('\\', '/', $dir);
@@ -71,7 +71,7 @@ class Loader
      * @param string путь
      * @return self
      */
-    public function namespace(string $namespace, string $path)
+    public function namespace(string $namespace, string $path): Loader
     {
         $this->namespaces[$namespace] = $this->baseDir . $path;
         return $this;
@@ -82,7 +82,7 @@ class Loader
      * @param array пути пространств имен
      * @return self
      */
-    public function namespaces(array $namespaces)
+    public function namespaces(array $namespaces): Loader
     {
         foreach ($namespaces as $namespace => $path) {
             $this->namespace($namespace, $path);
@@ -95,7 +95,7 @@ class Loader
      * @throws Exception
      * @return self
      */
-    public function useEvas()
+    public function useEvas(): Loader
     {
         $evasDir = dirname(dirname(__DIR__));
         $dirs = scandir($evasDir);
@@ -119,7 +119,7 @@ class Loader
      * Запуск автозагрузки.
      * @return self
      */
-    public function run()
+    public function run(): Loader
     {
         spl_autoload_register([$this, 'autoload']);
         return $this;
@@ -129,7 +129,7 @@ class Loader
      * Остановка автозагрузки.
      * @return self
      */
-    public function stop()
+    public function stop(): Loader
     {
         spl_autoload_unregister([$this, 'autoload']);
         return $this;
