@@ -106,7 +106,7 @@ class Loader
                     $sub = ucfirst($sub);
                 }
                 $this->namespace(
-                    (implode('\\', $name) . '\\'), 
+                    (implode('\\\\', $name) . '\\\\'), 
                     "vendor/evas-php/$dir/src/"
                 );
             }
