@@ -73,6 +73,7 @@ class Loader
      */
     public function namespace(string $namespace, string $path): Loader
     {
+        $namespace = str_replace('\\', '\\\\', $namespace);
         $this->namespaces[$namespace] = $this->baseDir . $path;
         return $this;
     }
@@ -106,7 +107,7 @@ class Loader
                     $sub = ucfirst($sub);
                 }
                 $this->namespace(
-                    (implode('\\\\', $name) . '\\\\'), 
+                    (implode('\\', $name) . '\\'), 
                     "vendor/evas-php/$dir/src/"
                 );
             }
